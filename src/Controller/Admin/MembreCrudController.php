@@ -2,10 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use Datetime;
 use App\Entity\Membre;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -34,9 +36,12 @@ class MembreCrudController extends AbstractCrudController
             TextField::new('nom', 'Nom'),
             TextField::new('pseudo', 'Pseudo'),
             TextField::new('password', 'Mot de passe')->setFormType(PasswordType::class)->onlyWhenCreating(),
-            CollectionField::new('civilite', 'Civilité')->setTemplatePath('admin/field/civilite.html.twig'),
+            ChoiceField::new('civilite', 'Civilité')->setChoices([
+                'Homme' => 'homme',
+                'Femme' => 'femme',
+            ]),
             CollectionField::new('roles', 'Role')->setTemplatePath('admin/field/roles.html.twig'),
-            // DateTimeField::new('createdAt')->setFormat('d/M/Y à H:m:s')->hideOnForm(),
+            DateTimeField::new('dateEnregistrement')->setFormat('d/M/Y à H:m:s')->hideOnForm(),
         ];
     }
 
@@ -52,6 +57,13 @@ class MembreCrudController extends AbstractCrudController
          }
          $entityManager->persist($entityInstance);
          $entityManager->flush();
+    }
+
+    public function createEntity(string $entityFqcn) 
+    {
+        $membre = new $entityFqcn;
+        $membre->setDateEnregistrement(new Datetime);
+        return $membre;
     }
     
 }

@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Produit
+{% endblock %}
+
+
+{% block body %}
+	<div class="container">
+
+		<div class="row mt-5">
+			{% for produit in produits %}
+				<div class="col-md-6 col-lg-4">
+					<div class="card border-secondary mb-3">
+						<div class="row g-0">
+							<div class="flex-column">
+								<div class="col-4" style="min-width: 400px">
+									<img src="{{produit.photo}}" alt="{{ produit.titre }}" style="object-fit: cover" width="100%" height="auto"/>
+								</div>
+								<div class="col-8">
+									<div class="card-body">
+										<h3 class="card-header">{{produit.titre}}</h3>
+										<h5 class="card-title" style="min-height: 350px">
+											{{ produit.description}}
+										</h5>
+										<ul>
+											<li>Couleur:
+												{{produit.couleur}}</li>
+											<li>Taille:
+												{{produit.taille}}</li>
+											<li>Collection:
+												{{produit.collection}}</li>
+											<li>Prix:
+												{{produit.prix}}
+												€</li>
+											<li>Stock:
+												{{produit.stock}}
+												€</li>
+										</ul>
+										<a href="#" class="btn btn-dark">Sélectioner</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>{% endblock %}
