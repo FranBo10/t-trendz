@@ -1,0 +1,13 @@
+{% block _User_civilite %}
+
+	{% for civilite in field.value %}
+			{% if civilite == "H" %}
+				Homme
+			{% elseif role == "M" %}
+				Femme
+			{% endif %}
+	
+		{% endfor %}
+
+
+{% endblock %}
