@@ -61,15 +61,13 @@ class CartController extends AbstractController
                 ->setQuantite($quantite)
                 ->setMontant($produit->getPrix() * $quantite)
                 ->setEtat("En cours d'enregistrement")
-                ->setDateEnregistrement(new \DateTime());
-        
-        // $manager->persist($produit);
-        // $manager->persist($membre);
+                ->setDateEnregistrement(new \DateTime());        
+
         $manager->persist($commande);
         }    
 
         $manager->flush();
-    
+        $this->addFlash("success", "La commande a été bien mise en compte");
         return $this->redirectToRoute('home');
     }
     
