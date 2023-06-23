@@ -9,42 +9,56 @@
 	<div class="container">
 
 		<div class="row mt-5">
-			{% for produit in produits %}
-				<div class="col-md-6 col-lg-4">
-					<div class="card border-secondary mb-3">
-						<div class="row g-0">
-							<div class="flex-column">
+			<div class="col-md-12">
+				<div class="card border-secondary mb-3 p-3">
+					<div class="row g-0">
+						<div class="flex-column">
+							<div class="d-flex justify-content-around">
 								<div class="col-4" style="min-width: 400px">
-									<img src="{{produit.photo}}" alt="{{ produit.titre }}" style="object-fit: cover" width="100%" height="auto"/>
+									<img src="{{asset('uploads/images/' ~ produit.photo)}}" alt="{{ produit.titre }}" style="object-fit: cover" width="100%" height="auto"/>
 								</div>
-								<div class="col-8">
-									<div class="card-body">
-										<h3 class="card-header">{{produit.titre}}</h3>
-										<h5 class="card-title" style="min-height: 350px">
-											{{ produit.description}}
-										</h5>
-										<ul>
-											<li>Couleur:
-												{{produit.couleur}}</li>
-											<li>Taille:
-												{{produit.taille}}</li>
-											<li>Collection:
-												{{produit.collection}}</li>
-											<li>Prix:
+								<div class="flex-column">
+									<h3>{{produit.titre}}</h3>
+									<hr>
+									<h5 class="card-title mt-3">
+										{{ produit.description|raw}}
+									</h5>
+
+									<ul class="list-unstyled">
+										<li>
+											<h4>Couleur:
+												{{produit.couleur}}</h4>
+										</li>
+										<li>
+											<h4>Taille:
+												{{produit.taille}}</h4>
+										</li>
+										<li>
+											<h4>Collection:
+												{{produit.collection}}</h4>
+										</li>
+										<li>
+											<h4>Prix:
 												{{produit.prix}}
-												€</li>
-											<li>Stock:
+												€</h4>
+										</li>
+										<li>
+											<h4>Stock:
 												{{produit.stock}}
-												€</li>
-										</ul>
-										<a href="#" class="btn btn-dark">Sélectioner</a>
+												Pc.</h4>
+										</li>
+									</ul>
+									<div class="mt-5">
+										<a href="{{path('cart_add', {id: produit.id})}}" class="btn btn-primary">Ajouter au panier</a>
+
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
-			{% endfor %}
+			</div>
 		</div>
 	</div>
 </div>{% endblock %}

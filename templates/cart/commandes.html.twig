@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion de commandes
+{% endblock
+%}
+{% block body %}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success text-center w-50 mx-auto my-2">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<div class="container-fluid">
+		<h1 class="text-center my-3">Gestion de commandes</h1>
+		<table class="table table-light">
+			<thead class="text-center">
+				<td>Commande n°</td>
+				<td>Membre</td>
+				<td>Produit</td>
+				<td>Quantité</td>
+				<td>Total</td>
+				<td>Etat</td>
+				<td>Date et Heure d'Enregistrement</td>
+				<td>Actions</td>
+			</thead>
+			<tbody class="text-center">
+				{% for item in commandes %}
+					<tr>
+						<td>{{ item.id }}</td>
+						<td>
+							{{ item.membre.id }}
+							-
+							{{ item.membre.prenom }}
+							-
+							{{ item.membre.nom }}
+							-
+							{{ item.membre.email }}
+						</td>
+						<td>{{ item.produit.id }}
+							-
+							{{ item.produit.titre }}</td>
+						<td>{{item.quantite}}</td>
+						<td>{{item.produit.prix}}
+							€</td>
+						<td>{{ item.etat }}</td>
+						<td>{{item.dateEnregistrement|date('d/m/Y à H:i:s')}}</td>
+						<td class="col-2">
+							<a href="#" class="text-info me-2">
+								<i class="fa fa-search"></i>
+							</a>
+							<a href="" class="text-warning me-2">
+								<i class="fa fa-edit"></i>
+							</a>
+							<a href="{{ path('commande_delete', { id: item.id }) }}" class="text-danger">
+								<i class="fa fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

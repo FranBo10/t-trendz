@@ -9,18 +9,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AppController extends AbstractController
 {
-    #[Route('/app', name: 'home')]
-    public function index(): Response
+    #[Route('/', name: 'home')]
+    public function index(ProduitRepository $repo): Response
     {
-        return $this->render('app/index.html.twig');
-    }
-
-    #[Route('/app/show', name: 'app_show')]
-    public function show(ProduitRepository $repo) {
         $produits = $repo->findAll();
 
-        return $this->render('app/show.html.twig', [
+        return $this->render('app/index.html.twig', [
             'produits' => $produits,
+        ]);
+    }
+
+    #[Route('/show/{id}', name: 'app_show')]
+    public function show(ProduitRepository $repo, $id) {
+        $produit = $repo->find($id);
+
+        return $this->render('app/show.html.twig', [
+            'produit' => $produit,
         ]);
 
     }

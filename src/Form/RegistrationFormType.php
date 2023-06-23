@@ -4,28 +4,36 @@ namespace App\Form;
 
 use App\Entity\Membre;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
+        ->add('prenom', null, [
+            'label' => "Prénom",
+            'label_attr' => ['class' => 'text-white bg-primary p-1 rounded'],
+        ])
+        ->add('nom', null, [
+            'label' => "Nom",
+            'label_attr' => ['class' => 'text-white bg-primary p-1 rounded'],
+        ])
+        ->add('pseudo', null, [
+            'label' => "Pseudo",
+            'label_attr' => ['class' => 'text-white bg-primary p-1 rounded'],
+        ])
+        ->add('email', null, [
+            'label' => "E-Mail",
+            'label_attr' => ['class' => 'text-white bg-primary p-1 rounded'],
+        ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -36,13 +44,24 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 4,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
+                'label' => "E-Mail",
+            'label_attr' => ['class' => 'text-white bg-primary p-1 rounded'],
             ])
+            ->add('civilite', ChoiceType::class, [
+                'choices'  => [
+                    'Femme' => 'femme',
+                    'Homme' => 'homme'
+                ],
+                'label' => "E-Mail",
+            'label_attr' => ['class' => 'text-white bg-primary p-1 rounded'],
+
+            ]);
         ;
     }
 

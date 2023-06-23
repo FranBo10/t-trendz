@@ -43,7 +43,7 @@ class ProduitCrudController extends AbstractCrudController
                 'Femme' => 'femme',
                 'Unisex' => 'unisex',
             ]),
-            ImageField::new('photo', 'Image')->setBasePath('images/produit')->setUploadDir('public/images/produit')->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
+            ImageField::new('photo', 'Image')->setBasePath('uploads/images')->setUploadDir('public/uploads/images/')->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
             MoneyField::new('prix', 'Prix')->setCurrency('EUR'),
             IntegerField::new('stock', 'Stock'),
             DateTimeField::new('date_enregistrement')->setFormat('d/M/Y à H:m:s')->hideOnForm(),

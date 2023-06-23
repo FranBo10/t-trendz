@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Luxurious+Roman&family=Roboto&display=swap");
+
+body {
+  font-family: "Luxurious Roman", Arial, Helvetica, sans-serif;
+}
+
+.card-height {
+  height: 100%;
+  background-color: #202020;
+}
