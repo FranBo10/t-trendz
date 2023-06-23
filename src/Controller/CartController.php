@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Loader\Configurator\request;
 
 class CartController extends AbstractController
+
 {
     #[Route('/cart', name: 'app_cart')]
     public function index(CartService $cs): Response
