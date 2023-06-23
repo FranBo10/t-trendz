@@ -21,9 +21,7 @@ class CartController extends AbstractController
     public function index(CartService $cs): Response
     {
         $dataPanier = $cs->dataPanier();
-        $total = $cs->total();
-        
-               
+        $total = $cs->total();              
 
         return $this->render('cart/index.html.twig', [
             'dataPanier' => $dataPanier,
@@ -64,6 +62,7 @@ class CartController extends AbstractController
                 ->setDateEnregistrement(new \DateTime());        
 
         $manager->persist($commande);
+        
         }    
 
         $manager->flush();
