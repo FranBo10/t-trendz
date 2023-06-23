@@ -11,6 +11,7 @@ use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Loader\Configurator\request;
@@ -47,10 +48,12 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/commandes', name: 'commandes')]
-    public function commande(EntityManagerInterface $manager, ProduitRepository $repo,  CartService $cs) : Response {
-        $dataPanier = $cs->datapanier();        
-  
-        foreach($dataPanier as $item) {
+    public function commande(EntityManagerInterface $manager, ProduitRepository $repo, CartService $cs, RequestStack $rs): Response
+    {
+        $dataPanier = $cs->datapanier();
+        $session = $rs->getSession();
+    
+        foreach ($dataPanier as $item) {
             $produit = $item['produit'];
             $quantite = $item['quantite'];
             $commande = new Commande;
@@ -59,16 +62,21 @@ class CartController extends AbstractController
                 ->setQuantite($quantite)
                 ->setMontant($produit->getPrix() * $quantite)
                 ->setEtat("En cours d'enregistrement")
-                ->setDateEnregistrement(new \DateTime());        
-
-        $manager->persist($commande);
-        
-        }    
-
+                ->setDateEnregistrement(new \DateTime());
+    
+            $manager->persist($commande);
+        }
+    
         $manager->flush();
+
+
+        $session->remove('panier');
+        $cs->clearCart();    
+        $session->set('qt', 0);    
         $this->addFlash("success", "La commande a été bien mise en compte");
         return $this->redirectToRoute('home');
     }
+    
     
     
     #[Route('/cart/commandes/delete/{id}', name: 'commande_delete')]

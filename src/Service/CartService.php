@@ -55,6 +55,14 @@ class CartService {
         $qt = $session->set("qt", $qt);
     }
 
+    public function clearCart() {
+
+        $session = $this->rs->getSession();
+
+        $session->remove('panier');
+
+    }
+
     public function dataPanier() {
 
         $session = $this->rs->getSession();

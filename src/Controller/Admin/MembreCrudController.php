@@ -43,7 +43,7 @@ class MembreCrudController extends AbstractCrudController
             ChoiceField::new('roles', 'Role')->setChoices([
                 'Membre'  => 'ROLE_USER',
                 'Admin' => 'ROLE_ADMIN',
-            ])->setTemplatePath('admin/field/roles.html.twig')->allowMultipleChoices()->escapeHtml(true),
+            ])->setTemplatePath('admin/field/roles.html.twig')->allowMultipleChoices(),
             DateTimeField::new('dateEnregistrement')->setFormat('d/M/Y à H:m:s')->hideOnForm(),
         ];
     }
